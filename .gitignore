@@ -1,0 +1,30 @@
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+.kotlin
+
+### IntelliJ IDEA ###
+.idea/
+
+### Windows ###
+Thumbs.db
+desktop.ini
+
+### Logs & Temp ###
+*.log
+logs/
+temp/
+tmp/
+
+### Spring Cloud Config ###
+*.properties.secret
+*.yml.secret
+
+### Infrastructure ###
+.env
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
