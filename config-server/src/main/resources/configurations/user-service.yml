@@ -1,0 +1,62 @@
+server:
+  port: 8081
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        id:
+          new_generator_mappings: true
+
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
+    enabled: true
+
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9094
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        enable.idempotence: true
+        spring.json.add.type.headers: false # чтобы консъюмер не искал класс по точному пути, указанному в заголовке
+    topics:
+      registration: "user-created"
+      update: "user-updated"
+      deleting: "user-updated"
+
+
+logging:
+  file:
+    path: logs
+  level:
+    root: INFO
+    userservice: debug
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
+    org.liquibase: INFO
+    org.springdoc: DEBUG
+    org.springframework.web: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+  use-management-port: false
+  show-actuator: true
