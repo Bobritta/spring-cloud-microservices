@@ -16,5 +16,5 @@ resend:
 
 notification:
   email:
-    from: "supercoolsiteteam@mail.ru"
+    from: ${RESEND_FROM}
     test_email: ${TEST_EMAIL}
